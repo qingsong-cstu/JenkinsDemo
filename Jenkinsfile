@@ -22,8 +22,8 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 cd myapp
-                python3 hello.py
-                python3 hello.py --name=Sai_Th
+                python3 Branch_1.py
+                python3 Branch_1.py --name=Sai_Th
                 '''
             }
         }
