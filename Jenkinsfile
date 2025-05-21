@@ -23,7 +23,7 @@ pipeline {
                 sh '''
                 cd myapp
                 python3 Branch_2.py
-                python3 Branch_2.py --name=Sai_Th
+                python3 Branch_2.py --name=Brad
                 '''
             }
         }
