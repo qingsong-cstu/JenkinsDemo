@@ -1,17 +1,19 @@
 pipeline {
-    // Branch_1 Jenkinsfile
-agent { 
-    node {
-        label 'docker-agent-python-branch1' // Unique label
+    agent { 
+        node {
+            label 'docker-agent-python-branch1' // Unique label
+        }
     }
-}
     triggers {
-        pollSCM '* * * * *'
+        pollSCM 'H/2 * * * *' // Less frequent polling
+    }
+    options {
+        disableConcurrentBuilds() // Prevent queue flooding
     }
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
+                echo "Building Branch_1..."
                 sh '''
                 cd myapp
                 pip install -r requirements.txt
@@ -20,7 +22,7 @@ agent {
         }
         stage('Test') {
             steps {
-                echo "Testing.."
+                echo "Testing Branch_1..."
                 sh '''
                 cd myapp
                 python3 Branch_1.py
@@ -30,9 +32,9 @@ agent {
         }
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
+                echo 'Delivering Branch_1...'
                 sh '''
-                echo "doing delivery stuff.."
+                echo "Branch_1 delivery logic..."
                 '''
             }
         }
