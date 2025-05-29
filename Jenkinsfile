@@ -1,16 +1,19 @@
 pipeline {
-    agent { 
+    agent {
         node {
-            label 'docker-agent-python'
-            }
-      }
+            label 'jenkins_node_default'
+        }
+    }
     triggers {
-        pollSCM '* * * * *'
+        pollSCM 'H/2 * * * *' // Polls Git every 2 minutes for new build
+    }
+    options {
+        disableConcurrentBuilds() // Prevent overlapping builds
     }
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
+                echo "Building Branch_2..."
                 sh '''
                 cd myapp
                 pip install -r requirements.txt
@@ -19,7 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo "Testing.."
+                echo "Testing Branch_2..."
                 sh '''
                 cd myapp
                 python3 Branch_2.py
@@ -29,9 +32,9 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
+                echo 'Delivering Branch_2...'
                 sh '''
-                echo "doing delivery stuff.."
+                echo "Branch_2 delivery logic..."
                 '''
             }
         }
