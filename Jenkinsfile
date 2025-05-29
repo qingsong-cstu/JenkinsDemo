@@ -1,30 +1,25 @@
 pipeline {
-    agent { 
+    agent {
         node {
-            label 'docker-agent-python-branch1' // Unique label
+            label 'jenkins_node_default' // Your Jenkins agent label
         }
     }
     triggers {
-        pollSCM 'H/2 * * * *' // Less frequent polling
+        pollSCM 'H/2 * * * *' // Polls Git every 2 minutes
     }
     options {
-        disableConcurrentBuilds() // Prevent queue flooding
+        disableConcurrentBuilds() // Prevent overlapping builds
     }
     stages {
         stage('Build') {
             steps {
                 echo "Building Branch_1..."
-                sh '''
-                cd myapp
-                pip install -r requirements.txt
-                '''
             }
         }
         stage('Test') {
             steps {
                 echo "Testing Branch_1..."
                 sh '''
-                cd myapp
                 python3 Branch_1.py
                 python3 Branch_1.py --name=Sai
                 '''
