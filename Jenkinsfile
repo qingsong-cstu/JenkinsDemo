@@ -10,7 +10,7 @@ pipeline {
     options {
         disableConcurrentBuilds() // Prevent overlapping builds
     }
-    stages {  // **Missing stages block**
+    stages { 
         stage('Build') {
             steps {
                 dir('myapp') {
