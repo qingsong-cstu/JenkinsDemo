@@ -5,7 +5,7 @@ pipeline {
         }
     }
     triggers {
-        pollSCM('H/2 * * * *') // Polls Git every 2 minutes for new build
+        pollSCM('H/10 * * * *') // Polls Git every 2 minutes for new build
     }
     options {
         disableConcurrentBuilds() // Prevent overlapping builds
