@@ -1,38 +1,43 @@
 pipeline {
-    agent { 
+    agent {
         node {
-            label 'docker-agent-python'
-            }
-      }
+            label 'jenkins-agent-python'
+        }
+    }
     triggers {
-        pollSCM '* * * * *'
+        pollSCM('H/10 * * * *')
+    }
+    options {
+        disableConcurrentBuilds()
     }
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
-                sh '''
-                cd myapp
-                pip install -r requirements.txt
-                '''
+                dir('myapp') {
+                    sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    '''
+                }
             }
         }
         stage('Test') {
             steps {
-                echo "Testing.."
+                echo "Testing Master Branch..."
                 sh '''
                 cd myapp
+                . venv/bin/activate
                 python3 hello.py
-                python3 hello.py --name=Brad
+                python3 hello.py --name=Sai
                 '''
             }
         }
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                echo 'Delivering Master Branch...'
+                sh 'echo "Master Branch delivery logic..."'
             }
         }
     }
