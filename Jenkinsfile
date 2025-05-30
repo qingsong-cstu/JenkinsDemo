@@ -5,22 +5,12 @@ pipeline {
         }
     }
     triggers {
-        pollSCM('H/10 * * * *') // Polls Git every 10 minutes for new build
+        pollSCM('H/10 * * * *')
     }
     options {
-        disableConcurrentBuilds() // Prevent overlapping builds
+        disableConcurrentBuilds()
     }
-    stages {  
-        stage('Prepare Python') {
-            steps {
-                sh '''
-                apk update
-                apk add --no-cache python3 py3-pip python3-venv
-                python3 -m ensurepip
-                pip3 install --upgrade pip
-                '''
-            }
-        }
+    stages {
         stage('Build') {
             steps {
                 dir('myapp') {
@@ -47,9 +37,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 echo 'Delivering Master Branch...'
-                sh '''
-                echo "Master Branch delivery logic..."
-                '''
+                sh 'echo "Master Branch delivery logic..."'
             }
         }
     }
