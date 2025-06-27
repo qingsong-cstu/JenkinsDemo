@@ -1,8 +1,8 @@
-FROM jenkins/jenkins:2.414.2
+FROM jenkins/jenkins:2.452.1
 
 USER root
 
-# Install Docker CLI (optional, for docker-workflow to work properly)
+# Install Docker CLI (optional for docker-workflow)
 RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker.gpg && \
@@ -11,8 +11,6 @@ RUN apt-get update && \
 
 USER jenkins
 
-# Copy plugin list into the container
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
-# Install plugins using plugin file (more reliable)
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
