@@ -1,0 +1,10 @@
+# Core pipeline + common SCM
+workflow-aggregator
+git
+
+# Docker support in pipelines
+docker-workflow
+
+# Optional UX & utilities (remove if you want the leanest image)
+blueocean
+timestamper
