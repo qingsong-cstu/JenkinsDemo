@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.426.3-jdk11
+FROM jenkins/jenkins:lts-jdk11
 USER root
 RUN apt-get update && apt-get install -y lsb-release python3-pip \
     && curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
